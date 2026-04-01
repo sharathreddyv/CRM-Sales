@@ -6,8 +6,8 @@
 		"type": "FileServer",
 		"typeProperties": {
 			"host": "C:\\Azure Project\\CRM_Sales_Opportunities",
-			"userId": "sharathreddy\\shara",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4MWQ4MzkwNy00ODVlLTRiMTktYWMzYi0wNTVhZGU2Y2YwMzQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userId": ".\\adf_user",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlYWNkNjg1Yy1mNjM4LTQyYjctOGQxZC1kZjEwYmNiOTA2OTgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "onPremtoazureir",
