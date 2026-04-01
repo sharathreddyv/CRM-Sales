@@ -1,0 +1,111 @@
+{
+	"name": "onpremtocloud",
+	"properties": {
+		"activities": [
+			{
+				"name": "onpremtocloud",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "FileServerReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"deleteFilesAfterCompletion": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Binary1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sink_binary_raw",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Sucess",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "onpremtocloud",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-13.northcentralus.logic.azure.com:443/workflows/b0e42dc05f374501969cf7716bda5b13/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=QrVKZQow1jOefZxUUMU6M3x4mmJpEnoY4W8sirL4kdQ",
+					"body": {
+						"value": "{\n        \"pipeline_name\": \"@{pipeline().Pipeline}\",\n        \"Status\": \"Succeeded\"\n        \"ID\": \"@{pipeline().RunId}\",\n        \"timestamp\": \"@{utcNow()}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Failure",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "onpremtocloud",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-13.northcentralus.logic.azure.com:443/workflows/b0e42dc05f374501969cf7716bda5b13/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=QrVKZQow1jOefZxUUMU6M3x4mmJpEnoY4W8sirL4kdQ",
+					"body": {
+						"value": "{\n        \"pipeline_name\": \"@{pipeline().Pipeline}\",\n        \"Status\": \"Failure\"\n        \"ID\": \"@{pipeline().RunId}\",\n        \"timestamp\": \"@{utcNow()}\"\n}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
