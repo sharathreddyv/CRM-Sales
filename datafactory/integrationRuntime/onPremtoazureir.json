@@ -1,0 +1,6 @@
+{
+	"name": "onPremtoazureir",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
