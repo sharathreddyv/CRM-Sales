@@ -1,0 +1,9 @@
+{
+	"name": "preparationresource",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f5892e67-a135-4733-ad7a-e34908f7ec8d",
+		"tenantId": "e3fefdbe-f7e9-401b-a51a-355e01b05a89"
+	}
+}
